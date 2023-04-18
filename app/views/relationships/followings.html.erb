@@ -1,0 +1,23 @@
+<h2>Folowing Users</h2>
+<% if Relationship.exists?(follower_id: current_user.id) %>
+  <table class="table">
+    <tr>
+      <th>image</th>
+      <th>name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  <% @following_users.each do |following_user| %>
+    <tr>
+      <td><%= image_tag following_user.get_profile_image, size: "50x50" %></td>
+      <td><%= following_user.name %></td>
+      <td>フォロー数：<%= following_user.followings.count %></td>
+      <td>フォロワー数：<%= following_user.followers.count %></td>
+      <td><%= link_to 'Show', following_user %></td>
+    </tr>
+  <% end %>
+  </table>
+<% else %>
+  ユーザーはいません
+<% end %>
