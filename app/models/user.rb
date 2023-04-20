@@ -34,6 +34,18 @@ class User < ApplicationRecord
     followings.include?(other_user)
   end
 
+  def self.looks(method,word)
+    if method == "perfect_matching"
+      @users = User.where("name LIKE ?", "#{word}")
+    elsif method == "forward_matching"
+      @users = User.where("name LIKE ?", "#{params[:word]}%")
+    elsif method == "backward_matching"
+      @users = User.where("name LIKE ?", "%#{params[:word]}")
+    elsif method == "partial_matching"
+      @users = User.where("name LIKE ?", "%#{params[:word]}%")
+    end
+  end
+
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
