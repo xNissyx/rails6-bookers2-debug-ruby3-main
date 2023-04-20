@@ -54,7 +54,9 @@
       </div>
     </div>
   </nav>
-  <div class="mx-auto">
+  <div class="container">
+    <div class="row justify-content-center">
+      
     <% if user_signed_in? %>
       <%= form_with url: search_path, local: true, method: :get do |f| %>
         <%= f.text_field :word %>

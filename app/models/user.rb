@@ -34,15 +34,16 @@ class User < ApplicationRecord
     followings.include?(other_user)
   end
 
+  # "self"がないとundefined method `looks' for User:Classエラーになる、なんでだろ
   def self.looks(method,word)
     if method == "perfect_matching"
       @users = User.where("name LIKE ?", "#{word}")
     elsif method == "forward_matching"
-      @users = User.where("name LIKE ?", "#{params[:word]}%")
+      @users = User.where("name LIKE ?", "#{word}%")
     elsif method == "backward_matching"
-      @users = User.where("name LIKE ?", "%#{params[:word]}")
+      @users = User.where("name LIKE ?", "%#{word}")
     elsif method == "partial_matching"
-      @users = User.where("name LIKE ?", "%#{params[:word]}%")
+      @users = User.where("name LIKE ?", "%#{word}%")
     end
   end
 

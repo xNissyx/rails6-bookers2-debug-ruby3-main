@@ -1,4 +1,46 @@
-<% @users.each do |user| %>
-  <%= user.name %>
-  <% end %>
-  aaa
+<% if @range == "User" %>
+  <h2>Users search for"<%= @word %>"</h2>
+  <table class="table">
+
+    <tr>
+      <th></th>
+      <th>name</th>
+      <th>introduction</th>
+    </tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td>
+          <%= image_tag user.get_profile_image, size: "50x50" %>
+        </td>
+        <td>
+          <%= user.name %>
+        </td>
+        <td>
+          <%= user.introduction %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <h2>Books search for"<%= @word %>"</h2>
+  <table class="table">
+    <tr>
+      <th></th>
+      <th>title</th>
+      <th>opinion</th>
+    </tr>
+    <% @books.each do |book| %>
+      <tr>
+        <td>
+          <%= image_tag book.user.get_profile_image, size: "50x50" %>
+        </td>
+        <td>
+          <%= book.title %>
+        </td>
+        <td>
+          <%= book.body %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
