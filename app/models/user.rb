@@ -35,15 +35,32 @@ class User < ApplicationRecord
   end
 
   # "self"がないとundefined method `looks' for User:Classエラーになる、なんでだろ
-  def self.looks(method,word)
-    if method == "perfect_matching"
-      @users = User.where("name LIKE ?", "#{word}")
-    elsif method == "forward_matching"
-      @users = User.where("name LIKE ?", "#{word}%")
-    elsif method == "backward_matching"
-      @users = User.where("name LIKE ?", "%#{word}")
-    elsif method == "partial_matching"
-      @users = User.where("name LIKE ?", "%#{word}%")
+  # def self.looks(method,word)
+  #   if method == "perfect"
+  #     @users = User.where(name: "#{word}")
+  #   elsif method == "forward"
+  #     @users = User.where("name LIKE ?", "#{word}%")
+  #   elsif method == "backward"
+  #     @users = User.where("name LIKE ?", "%#{word}")
+  #   elsif method == "partial"
+  #     @users = User.where("name LIKE ?", "%#{word}%")
+  #   end
+  # end
+
+  # # case文で書き換えてみた
+  # self=クラスメソッド(self.looks)
+  class << self
+    def looks(method,word)
+      case method
+      when "perfect"
+        @users = User.where(name: "#{word}")
+      when "forward"
+        @users = User.where("name LIKE ?", "#{word}%")
+      when "backward"
+        @users = User.where("name LIKE ?", "%#{word}")
+      when "partial"
+        @users = User.where("name LIKE ?", "%#{word}%")
+      end
     end
   end
 

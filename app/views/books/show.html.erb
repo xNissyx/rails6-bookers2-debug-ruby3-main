@@ -23,22 +23,14 @@
           <!--  <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>-->
           <!--<% end %>-->
           <td>
-            <% if @book.favorited_by?(current_user) %>
-              <%= link_to book_favorites_path(@book.id), method: :DELETE, class: "text-danger"  do %>
-                <h5>♥<%= @book.favorites.count %></h5>
-              <% end %>
-            <% else %>
-              <%= link_to book_favorites_path(@book.id), method: :POST do %>
-                <h5>♥<%= @book.favorites.count %></h5>
-              <% end %>
-            <% end %>
+            <%= render "favorites/btn", book: @book %>
           </td>
           <td>
             コメント数：<%= @book.book_comments.count %>
           </td>
         </tr>
       </table>
-      
+
       <% @book_comments.each do |comment| %>
       <div class="row pl-3">
         <div>
