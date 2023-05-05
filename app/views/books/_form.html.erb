@@ -10,4 +10,24 @@
   <div class="form-group">
     <%= f.submit class: 'btn btn-success' %>
   </div>
+  <div id="post_raty">
+    <%= f.label :evaluation,'評価' %>
+  </div>
+  <script>
+    // scriptファイルをどのidの部分に配置するかを指定
+    // $("#post_raty").raty({
+    //   starOn: "<%= asset_path('star-on.png') %>",
+    //   starOff: "<%= asset_path('star-off.png') %>",
+    //   starHalf: "<%= asset_path('star-half.png') %>",
+    //   scoreName: 'book[evaluation]'
+    // });
+     new Raty(document.querySelector('#post_raty'), {
+      size     : 36,
+      starOff:  '<%= asset_path('star-off.png') %>',
+      starOn : '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      scoreName: 'book[evaluation]',
+      half: false
+    });
+  </script>
 <% end %>
