@@ -8,23 +8,54 @@
     <%= f.text_area :body, class: 'form-control book_body' %>
   </div>
 
+  <% if book.id.nil? %>
   <div id="post_raty">
     <%= f.label :evaluation,'評価' %>
     <%= f.hidden_field :evaluation %>
   </div>
   <script>
-     $(document).on('turbolinks:load', function() {
-        let elem = document.querySelector('#post_raty');
+          $(document).on('turbolinks:load', function() {
+          let elem = document.querySelector('#post_raty');
+          if (elem == null) return;
+          // $(document).on('turbolinks:load', function() {...})は、
+          // Turbolinksのloadイベントが発生した時に実行される関数を定義するためのjQueryのコードです。
+          // これにより、ページ遷移が発生した場合にもJavaScriptが正しく動作するようになります。
+          // let elem = document.querySelector('#post_raty');は、
+          // CSSセレクタ#post_ratyにマッチする最初の要素を取得し、elem変数に代入しています。
+          // if (elem == null) return;は、elemがnullである場合に、それ以降の処理を中断するための条件文です。
+          // つまり、#post_ratyという要素が存在しない場合には、この関数は何も行わずに終了します。
+          // elem.innerHTML = ""
+          let opt = {
+            starOn: "<%= asset_path('star-on.png') %>",
+            starOff: "<%= asset_path('star-off.png') %>",
+            starHalf: "<%= asset_path('star-half.png') %>",
+            scoreName: 'book[evaluation]',
+            // score: "<%= isEdit ? book.evaluation : 0 %>",
+            // readOnly: <%= isEdit ? true : false %>
+          };
+          raty(elem, opt);
+        });
+    </script>
+    <% else %>
+    <div id="edit_raty_<%= book.id %>">
+      <script>
+      $(document).on("turbolinks:load", function(){
+        let elem = document.querySelector('#edit_raty_<%= book.id %>');
+        if (elem == null) return;
 
+        elem.innerHTML = "";
         let opt = {
           starOn: "<%= asset_path('star-on.png') %>",
           starOff: "<%= asset_path('star-off.png') %>",
           starHalf: "<%= asset_path('star-half.png') %>",
-          scoreName: 'book[evaluation]',
+          score: "<%= book.evaluation %>",
+          readOnly: true,
         };
         raty(elem, opt);
       });
-  </script>
+      </script>
+    </div>
+    <% end %>
     <div class="form-group">
     <%= f.submit class: 'btn btn-success' %>
   </div>
