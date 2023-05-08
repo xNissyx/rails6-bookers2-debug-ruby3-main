@@ -5,6 +5,9 @@ class Book < ApplicationRecord
   validates :title,presence:true
   validates :body,presence:true,length:{maximum:200}
 
+  scope :latest, -> {order(created_at: :desc)}
+  scope :evaluation_count, -> {order(evaluation: :desc)}
+
   def self.looks(method,word)
     if method == "perfect_matching"
       @books = Book.where("title LIKE ?", "#{word}")

@@ -11,6 +11,9 @@
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
+      <%= link_to "新しい順", books_path(latest: true), data: { turbolinks: false }  %>
+      <span>|</span>
+      <%= link_to "評価の高い順", books_path(evaluation_count: true), data: { turbolinks: false }  %>
       <%= render 'index', books: @books%>
     </div>
   </div>

@@ -23,6 +23,26 @@
         <td>
             コメント数：<%= @book.book_comments.count %>
         </td>
+        <td>
+          <div id="index_raty_<%= book.id %>">
+            <script>
+              $(document).on('turbolinks:load', function() {
+                let elem = document.querySelector('#index_raty_<%= book.id %>');
+                if (elem == null) return;
+                
+                elem.innerHTML = "";
+                let opt = {  
+                  starOn: "<%= asset_path('star-on.png') %>",
+                  starOff: "<%= asset_path('star-off.png') %>",
+                  starHalf: "<%= asset_path('star-half.png') %>",
+                  score: "<%= book.evaluation %>",
+                  readOnly: true,
+                };
+                raty(elem, opt);
+              });
+            </script>
+          </div>
+        </td>
       </tr>
     <% end %>
   </tbody>
