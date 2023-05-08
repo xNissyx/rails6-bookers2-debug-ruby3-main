@@ -10,14 +10,15 @@
   		<h2>Book detail</h2>
   		<table class='table'>
   		  <tr>
-          <td><%= link_to(@book.user) do %>
+          <td><%= link_to user_path(@book.user.id), data: {"turbolinks" => false} do %>
             <%= image_tag @book.user.get_profile_image, size:"80x80" %><br>
             <%= @book.user.name %>
             <% end %>
           </td>
-          <td><%= link_to @book.title, @book %></td>
+          <td><%= link_to @book.title, @book, data: {"turbolinks" => false} %></td>
           <td><%= @book.body %></td>
 
+          <td><%= link_to @book.tag, tagsearch_path %></td>
 
           <td id="favorite_btn_<%= @book.id %>">
             <%= render "favorites/btn", book: @book %>
@@ -29,7 +30,7 @@
           <td>
             <div id="show_evaluation"></div>
             <script>
-            
+
               let show_elem = document.querySelector('#show_evaluation');
               let show_opt = {
                 starOn: "<%= asset_path('star-on.png') %>",
