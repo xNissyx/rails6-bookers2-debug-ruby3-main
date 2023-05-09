@@ -14,7 +14,7 @@ class BooksController < ApplicationController
     elsif params[:evaluation_count]
       @books = Book.evaluation_count
     else
-      @books = Book.all
+      @books = Book.with_favorites_count
     end
   end
 

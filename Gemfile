@@ -58,3 +58,6 @@ gem 'devise'
 
 # gem 'net-smtp'
 gem 'jquery-rails'
+gem 'slim-rails'
+gem 'html2slim'
+gem 'nokogiri', '~> 1.14.3'

@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title
+      | Bookers2Ver2
+    = csrf_meta_tags
+    = csp_meta_tag
+    meta[name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"]
+    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    = render 'layouts/header'
+    main
+      p#notice
+        = notice
+        /idの時は空欄なしで#id名と記述
+      = yield
+    = render 'layouts/footer'

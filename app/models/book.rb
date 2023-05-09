@@ -8,6 +8,14 @@ class Book < ApplicationRecord
 
   scope :latest, -> {order(created_at: :desc)}
   scope :evaluation_count, -> {order(evaluation: :desc)}
+  # scope :favorites_count, -> { where(favorite: { created_at: 1.week.ago..Time.current }) }
+   scope :with_favorites_count, -> { 
+    joins(:favorites)
+      .where(favorites: { created_at: 1.week.ago..Time.current })
+      .group('books.id')
+      .select('books.*, COUNT(favorites.id) AS favorites_count')
+      .order(favorites_count: :DESC)
+  }
 
   def self.looks(method,word)
     if method == "perfect_matching"
