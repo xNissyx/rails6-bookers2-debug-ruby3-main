@@ -1,0 +1,6 @@
+<% messages.each do |m| %>
+  <li>
+    <%= m.message %>
+    <%= m.created_at.strftime("%Y-%m-%d %H:%M")%>
+  </li>
+<% end %>

@@ -11,6 +11,8 @@ class Book < ApplicationRecord
   # scope :favorites_count, -> { where(favorite: { created_at: 1.week.ago..Time.current }) }
    scope :with_favorites_count, -> { 
     joins(:favorites)
+    # joinsメソッドを使って、favoritesテーブルを内部結合(INNER JOIN)します。
+    # 内部結合をすることで、postsテーブルとfavoritesテーブルのレコードを関連付けることができます。
       .where(favorites: { created_at: 1.week.ago..Time.current })
       .group('books.id')
       .select('books.*, COUNT(favorites.id) AS favorites_count')

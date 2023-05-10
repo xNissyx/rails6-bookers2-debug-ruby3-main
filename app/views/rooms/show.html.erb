@@ -1,0 +1,20 @@
+<div>
+  <!--<h1>チャットメンバー一覧</h1>-->
+  <% @entries.each do |e| %>
+    <% if e.user.id != current_user.id %>
+      <h1><%= e.user.name %>さんとのチャット</h1>
+    <% end %>
+  <% end %>
+</div>
+
+<div id="messages_area">
+  <%= render "messages/message", messages: @messages %>
+</div>
+
+<div>
+<%= form_with model: @message, local: false do |f| %>
+  <%= f.text_field :message, placeholder: "メッセージを入力して下さい", class: "message_btn" %>
+  <%= f.hidden_field :room_id, value: @room.id %>
+  <%= f.submit "送信" %>
+<% end %>
+</div>

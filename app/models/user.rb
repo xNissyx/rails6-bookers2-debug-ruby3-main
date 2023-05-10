@@ -18,7 +18,12 @@ class User < ApplicationRecord
 
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
-
+  
+  # DM機能のアソシエーション
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
+  has_many :rooms, dependent: :destroy, through: :entries
+  
   #   # ユーザーをフォローする
   def follow(other_user)
     active_relationships.create(followed_id: other_user.id)

@@ -1,0 +1,3 @@
+$("#messages_area").html("<%= j(render "messages/message", messages: @messages)  %>")
+$(".message_btn").val("");
+<!--テキストフィールドに対して.val("")とやること！！-->
