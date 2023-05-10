@@ -24,7 +24,10 @@
           <%= render "favorites/btn", book: book %>
         </td>
         <td>
-            コメント数：<%= @book.book_comments.count %>
+            コメント数：<%= book.book_comments.count %>
+        </td>
+        <td>
+            閲覧数：<%= book.read_counts.count %>
         </td>
         <td>
           <div id="index_raty_<%= book.id %>">
@@ -32,9 +35,9 @@
               $(document).on('turbolinks:load', function() {
                 let elem = document.querySelector('#index_raty_<%= book.id %>');
                 if (elem == null) return;
-                
+
                 elem.innerHTML = "";
-                let opt = {  
+                let opt = {
                   starOn: "<%= asset_path('star-on.png') %>",
                   starOff: "<%= asset_path('star-off.png') %>",
                   starHalf: "<%= asset_path('star-half.png') %>",

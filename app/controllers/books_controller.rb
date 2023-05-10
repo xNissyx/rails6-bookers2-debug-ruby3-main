@@ -4,6 +4,12 @@ class BooksController < ApplicationController
   def show
     @user = @book.user
     @book_comments = @book.book_comments
+    
+    # 閲覧数(ReadCount)の作成
+    current_user.read_counts.create(book_id: @book.id)
+    # 省略せず書くと
+    # read_count = ReadCount.new(user_id: current_user.id, book_id: @book.id)
+    # read_count.save
   end
 
   def index

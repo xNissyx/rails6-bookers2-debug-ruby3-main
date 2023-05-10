@@ -26,7 +26,9 @@
           <td id="comments_count">
             コメント数：<%= @book.book_comments.count %>
           </td>
-
+          <td>
+            閲覧数：<%= @book.read_counts.count %>
+          </td>
           <td>
             <div id="show_evaluation"></div>
             <script>
