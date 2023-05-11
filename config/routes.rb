@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   
   resources :rooms, only: [:show, :create]
   resources :messages, only: [:create]
+  resources :groups, only: %i[new create index edit]
 
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
     resource :favorites, only: [:create, :destroy]

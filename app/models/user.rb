@@ -25,6 +25,10 @@ class User < ApplicationRecord
   has_many :entries, dependent: :destroy
   has_many :rooms, dependent: :destroy, through: :entries
   
+  # グループ機能のアソシエーション
+  has_many :group_users, dependent: :destroy
+  has_many :group, through: :group_users
+  
   #   # ユーザーをフォローする
   def follow(other_user)
     active_relationships.create(followed_id: other_user.id)
