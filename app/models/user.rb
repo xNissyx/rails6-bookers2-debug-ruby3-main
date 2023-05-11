@@ -27,7 +27,7 @@ class User < ApplicationRecord
   
   # グループ機能のアソシエーション
   has_many :group_users, dependent: :destroy
-  has_many :group, through: :group_users
+  # has_many :group, through: :group_users
   
   #   # ユーザーをフォローする
   def follow(other_user)

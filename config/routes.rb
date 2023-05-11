@@ -5,10 +5,11 @@ Rails.application.routes.draw do
   get "home/about"=>"homes#about"
   get "search" => "searches#search"
   get "tagsearch" => "tagsearch#search"
-  
+
   resources :rooms, only: [:show, :create]
   resources :messages, only: [:create]
-  resources :groups, only: %i[new create index edit]
+  # resources :groups, only: [:create, :new, :index]
+  resources :groups, only: [:new, :index, :show, :create, :edit, :update]
 
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
     resource :favorites, only: [:create, :destroy]
