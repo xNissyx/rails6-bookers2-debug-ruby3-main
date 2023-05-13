@@ -31,7 +31,7 @@ class GroupsController < ApplicationController
   def join
     @group = Group.find_by(id: params[:group_id])
     @group.users << current_user
-    redirect_to  groups_path
+    redirect_to request.referer
   end
 
   def edit
@@ -41,7 +41,7 @@ class GroupsController < ApplicationController
   def update
     @group = Group.find(params[:id])
     if @group.update(group_params)
-      redirect_to groups_path
+      redirect_to request.referer
     else
       render "edit"
     end
@@ -51,7 +51,7 @@ class GroupsController < ApplicationController
     # グループ除名機能
     @group = Group.find(params[:id])
     @group.users.delete(current_user)
-    redirect_to groups_path
+    redirect_to request.referer
   end
 
   private
