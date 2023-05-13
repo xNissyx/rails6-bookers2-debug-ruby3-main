@@ -9,7 +9,10 @@ Rails.application.routes.draw do
   resources :rooms, only: [:show, :create]
   resources :messages, only: [:create]
   # resources :groups, only: [:create, :new, :index]
-  resources :groups, only: [:new, :index, :show, :create, :edit, :update]
+  resources :groups do
+    get "join" => "groups#join"
+  end
+  
 
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
     resource :favorites, only: [:create, :destroy]
