@@ -19,20 +19,20 @@ class User < ApplicationRecord
 
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
-  
+
   # DM機能のアソシエーション
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :rooms, dependent: :destroy, through: :entries
-  
+
   # グループ機能のアソシエーション
   has_many :group_users, dependent: :destroy
   has_many :groups, through: :group_users
-  
+
   # イベントのアソシエーション
   has_many :events, dependent: :destroy, through: :atendees
   has_many :atendees, dependent: :destroy
-  
+
   #   # ユーザーをフォローする
   def follow(other_user)
     active_relationships.create(followed_id: other_user.id)
@@ -48,19 +48,12 @@ class User < ApplicationRecord
     followings.include?(other_user)
   end
 
-  # "self"がないとundefined method `looks' for User:Classエラーになる、なんでだろ
-  # def self.looks(method,word)
-  #   if method == "perfect"
-  #     @users = User.where(name: "#{word}")
-  #   elsif method == "forward"
-  #     @users = User.where("name LIKE ?", "#{word}%")
-  #   elsif method == "backward"
-  #     @users = User.where("name LIKE ?", "%#{word}")
-  #   elsif method == "partial"
-  #     @users = User.where("name LIKE ?", "%#{word}%")
-  #   end
-  # end
-
+  # ゲストログイン機能
+  def self.guest
+    find_or_create_by!(name: "guestuser", email: "guest@example.com") do |user|
+      user.password = SecureRandom.urlsafe_base64
+    end
+  end
   # # case文で書き換えてみた
   # self=クラスメソッド(self.looks)
   class << self
