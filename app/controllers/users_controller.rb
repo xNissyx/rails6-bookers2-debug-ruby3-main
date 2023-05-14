@@ -6,11 +6,20 @@ class UsersController < ApplicationController
     @books = @user.books
     @book = Book.new
     
+    @today_count = @books.where("DATE(created_at) = ?", Date.today).count
+    @yesterday_count = @books.where("DATE(created_at) = ?", Date.yesterday).count
+    @week_count = 
+    
+    if @yesterday_count > 0
+      @diff_percent = @today_count/@yesterday_count*100
+    else
+      @diff_percent = 0
+    end
     # DM機能
     @currentUserEntry = Entry.where(user_id: current_user.id)
     @userEntry = Entry.where(user_id: @user.id)
-    
-    unless current_user == @user 
+
+    unless current_user == @user
       @currentUserEntry.each do |cu|
         @userEntry.each do |u|
           if cu.room_id == u.room_id
