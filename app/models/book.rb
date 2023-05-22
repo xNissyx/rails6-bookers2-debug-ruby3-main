@@ -21,13 +21,24 @@ class Book < ApplicationRecord
   }
 
   def self.looks(method,word)
-    if method == "perfect_matching"
+    # if method == "perfect_matching"
+    #   @books = Book.where("title LIKE ?", "#{word}")
+    # elsif method == "forward_matching"
+    #   @books = Book.where("title LIKE ?", "#{word}")
+    # elsif method == "backward_matching"
+    #   @books = Book.where("title LIKE ?", "#{word}")
+    # elsif method == "partial_matching"
+    #   @books = Book.where("title LIKE ?", "%#{word}%")
+    # end
+    # 　case文で書き換え
+    case method
+    when "perfect_matching"
       @books = Book.where("title LIKE ?", "#{word}")
-    elsif method == "forward_matching"
-      @books = Book.where("title LIKE ?", "#{word}%")
-    elsif method == "backward_matching"
-      @books = Book.where("title LIKE ?", "%#{word}")
-    elsif method == "partial_matching"
+    when "forward_matching"
+      @books = Book.where("title LIKE ?", "#{word}")
+    when "backward_matching"
+      @books = Book.where("title LIKE ?", "#{word}")
+    when "partial_matching"
       @books = Book.where("title LIKE ?", "%#{word}%")
     end
   end
